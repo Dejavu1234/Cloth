@@ -173,7 +173,10 @@
     <ClCompile Include="Link.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ParticleEnt.cpp" />
+    <ClCompile Include="PartySystem.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="ShadowMap.cpp" />
+    <ClCompile Include="SpookySkeleton.cpp" />
     <ClCompile Include="Spring.cpp" />
     <ClCompile Include="StarObject.cpp" />
     <ClCompile Include="Terrain.cpp" />
@@ -215,7 +218,10 @@
     <ClInclude Include="Level.h" />
     <ClInclude Include="Link.h" />
     <ClInclude Include="ParticleEnt.h" />
+    <ClInclude Include="PartySystem.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="ShadowMap.h" />
+    <ClInclude Include="SpookySkeleton.h" />
     <ClInclude Include="Spring.h" />
     <ClInclude Include="StarObject.h" />
     <ClInclude Include="Terrain.h" />

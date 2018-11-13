@@ -305,3 +305,22 @@ void Entity::SetBox2DTransform(glm::vec3 _Position, float _Rotation)
 {	
 	if (body) body->SetTransform(b2Vec2(_Position.x, _Position.y), (_Rotation / 180) * b2_pi);
 }
+
+void Entity::ShadowMap()
+{
+	//glUseProgram(this->shadowMapProgram); // wrong
+	//glm::mat4 lightViewMatrix = glm::lookAt(light->getPosition(), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+	//glm::mat4 lightVPMatrix = camera->getprojectionMatrix() * lightViewMatrix;
+
+	//GLint vpLoc = glGetUniformLocation(shadowMapProgram, "lightVPMatrix");
+	//glUniformMatrix4fv(vpLoc, 1, GL_FALSE, glm::value_ptr(lightVPMatrix));
+	//// model matrix of the current object
+	//GLint modelLoc = glGetUniformLocation(shadowMapProgram, "model");
+	//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(modelMatrix));
+	//// draw the current object
+	//glBindVertexArray(vao);
+	//glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
+	//glBindVertexArray(0);
+
+
+}

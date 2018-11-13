@@ -77,6 +77,7 @@ public:
 
 	void SetBox2DTransform(glm::vec3 _Position, float _Rotation);
 
+	void ShadowMap();
 	
 protected:
 	bool bActive = true;

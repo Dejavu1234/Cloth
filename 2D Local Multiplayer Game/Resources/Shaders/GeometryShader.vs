@@ -1,21 +1,30 @@
 #version 430 core
 
-layout (location = 0) in vec3 position;
-layout (location = 1) in vec4 color;
-
-out VS_GS_VERTEX{
-	out vec4 position;
-	out vec4 color;
-	out mat4 mvp;
-} vs_out;
-
-uniform mat4 MVP;
-
-void main()
+layout (points) in;
+layout (triangle_strip, max_vertices = 4) out;
+uniform mat4 vp;
+uniform vec3 vQuad1, vQuad2;
+out GS_FS_VERTEX{
+vec2 texcoord;
+}gs_out;
+void main() 
 {
-	gl_Position = MVP * vec4(position, 1.0f);
-	
-	vs_out.color = color;
-	vs_out.position = gl_Position;
-	vs_out.mvp = MVP;
+buildQuad(0.1, vp);
+}
+
+void buildQuad(float size, uniform mat4 vp )
+{
+vec3 p1 = gl_in[0].gl_Position.xyz +(-vQuad1-vQuad2)* size;
+gl_Position = vp * vec4(p1, 1.0f);
+gs_out.texcoord = vec2(0.0f, 0.0f); EmitVertex();
+vec3 p2 = gl_in[0].gl_Position.xyz + (-vQuad1+vQuad2)* size;
+gl_Position = vp * vec4(p2, 1.0f);
+gs_out.texcoord = vec2(0.0f, 1.0f); EmitVertex();
+vec3 p3 = gl_in[0].gl_Position.xyz + (vQuad1-vQuad2)* size;
+gl_Position = vp * vec4(p3, 1.0f);
+gs_out.texcoord = vec2(1.0f, 0.0f); EmitVertex();
+vec3 p4 = gl_in[0].gl_Position.xyz + (vQuad1+vQuad2)* size;
+gl_Position = vp * vec4(p4, 1.0f);
+gs_out.texcoord = vec2(1.0f, 1.0f); EmitVertex();
+EndPrimitive(); 
 }

@@ -33,6 +33,8 @@
 #include "Terrain.h"
 #include "Player.h"
 #include "Cloth.h"
+#include "PartySystem.h"
+#include "ParticleEnt.h"
 
 // Library Includes //
 #include <iostream>
@@ -44,26 +46,27 @@
 Level::Level(std::string sSceneName)
 	:Scene(sSceneName)
 {
-	std::shared_ptr<Cloth> ClothObject = std::make_shared<Cloth>(Cloth(20, 10, {0,0,0}));
-	ClothObject->DrawCloth();
+	/*std::shared_ptr<Cloth> ClothObject = std::make_shared<Cloth>(Cloth(20, 10, {0,0,0}));
+	ClothObject->DrawCloth();*/
 	//AddEntity(ClothObject);
-	/*std::shared_ptr<Entity> TerrainObject = std::make_shared<Entity>(Entity({ { 0, 0, 0 } ,{ 90, 0, 0 },{1, 1, 1 } }, Utils::CENTER));
+	std::shared_ptr<Entity> TerrainObject = std::make_shared<Entity>(Entity({ { 0, 0, 0 } ,{ 90, 0, 0 },{1, 1, 1 } }, Utils::CENTER));
 	std::shared_ptr<Plane> TestImage = std::make_shared<Plane>(Plane(20, 20, { 0.9f, 0.3f, 0.1f, 1.0f }, "Resources/Images/Box.png"));
-	TerrainObject->AddMesh(TestImage);*/
-	/*TestImage->bCullFace = false;
-	AddEntity(TerrainObject, true);*/
+	TerrainObject->AddMesh(TestImage);
+	TestImage->bCullFace = false;
+	AddEntity(TerrainObject, true);
 
-	/*td::shared_ptr<Terrain> ActualTerrainObject = std::make_shared<Terrain>(Terrain({ { 0, 0, 0 } ,{ 0, 0, 0 },{ 1, 1, 1 } }, Utils::CENTER));
-	AddEntity(ActualTerrainObject,true);*/
+	std::shared_ptr<PartySystem> ParticleSystem = std::make_shared<PartySystem>(PartySystem({ 0, 0, 0 }, Camera::GetInstance(), "Blacklad"));
+	std::shared_ptr<Terrain> ActualTerrainObject = std::make_shared<Terrain>(Terrain({ { 0, 0, 0 } ,{ 0, 0, 0 },{ 1, 1, 1 } }, Utils::CENTER));
+	AddEntity(ActualTerrainObject,true);
 
 	PlayerOb = std::make_shared<Player>(Player({ 5, 20, 5 }));
 	AddEntity(PlayerOb, true);
-	//PlayerOb->TerrainPointer = ActualTerrainObject;
+	PlayerOb->TerrainPointer = ActualTerrainObject;
 
 	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
-	//Camera::GetInstance()->EnableSpectatorControls(true);
-	Camera::GetInstance()->SetCameraForwardVector({ 0, 1, 1 });
+	Camera::GetInstance()->EnableSpectatorControls(true);
+	
 }
 
 Level::~Level()
@@ -74,7 +77,7 @@ Level::~Level()
 void Level::Update()
 {	
 	Scene::Update();
-
+	Camera::GetInstance()->SetCameraForwardVector(PlayerOb->transform.Position);
 	Camera::GetInstance()->EnableSpectatorControls(true);
 }
 

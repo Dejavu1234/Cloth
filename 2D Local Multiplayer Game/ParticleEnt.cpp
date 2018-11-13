@@ -1,103 +1,44 @@
 #include "ParticleEnt.h"
 #include "Engine/Utils.h"
 #include "Engine/Time.h"
+#include "Engine/Camera.h"
 
 
-ParticleEnt::ParticleEnt()
+ParticleEnt::ParticleEnt(glm::vec3 Origin, glm::vec3 Velocity, float ElapsedTime, float Speed, int ID, Camera* ParticleCam)
 {
-}
-
-ParticleEnt::ParticleEnt(glm::vec3 Transform)
-{
-	Friction = 0.95f;
-	Gravity = glm::vec3(0.0f, -9.82f, 0.0f);
-	Mass = 1.0f;
-	Bounce = 0.7f;
+	CameraReference = ParticleCam;
 }
 
 ParticleEnt::~ParticleEnt()
 {
 }
 
-void ParticleEnt::AddImpulse(const glm::vec3 & impulse)
-{
-	Velocity = Velocity + impulse;
-}
-
-float ParticleEnt::InvMass()
-{
-	if (Mass == 0.0f) {
-		return 0.0f;
-	}
-	return 1.0f / Mass;
-}
-
-void ParticleEnt::SetMass(float m)
-{
-	if (m < 0) {
-		m = 0;
-	}
-	Mass = m;
-}
-
-glm::vec3 ParticleEnt::GetVelocity()
-{
-	return Velocity;
-}
-
-void ParticleEnt::SetFriction(float f)
-{
-	if (f < 0) {
-		f = 0;
-	}
-	Friction = f;
-}
-
-void ParticleEnt::SetPosition(const glm::vec3 & pos)
-{
-	Position = OldPosition = pos;
-}
-
-glm::vec3 ParticleEnt::GetPosition()
-{
-	return Position;
-}
-
-void ParticleEnt::SetBounce(float b)
-{
-	Bounce = b;
-}
-
-float ParticleEnt::GetBounce()
-{
-	return Bounce;
-}
-
-void ParticleEnt::SolveConstraints(std::vector<Entity>& constraints)
-{
-	/*int size = constraints.size();
-	for (int i = 0; i < size; ++i) 
-	{
-		D = sqrt((x_2 - x_1)*(x_2 - x_1) + (y_2 - y_1)*(y_2 - y_1));
-
-		if (D <= r1 + r2)
-		{
-			r = !r
-		}
-	}*/
-}
-
-void ParticleEnt::ApplyForces()
-{
-	Forces = Gravity * Mass;
-}
 
 void ParticleEnt::Update()
 {
-	/* NEW: */ glm::vec3 Acceleration = Forces * InvMass();
-	Velocity = Velocity * Friction + Acceleration * static_cast<float>(Time::dTimeDelta);
-	Position = Position + Velocity * static_cast<float>(Time::dTimeDelta);
+
+	this->Velocity.y += -0.2 * .0167f;
+	this->Position += Velocity;
+	this->fElapsedTime -= .000167;
+	this->CameraDistance = glm::distance(this->CameraReference->GetCameraPosition(), this->Position); //add
+	if (this->fTimeLength <= 0.0f) {
+		this->Position = this->InitialPostition;
+		this->Velocity =
+			glm::vec3(0.25 * cos(this->ID * .0167) + 0.25f * Random() - 0.125f,
+				1.5f + 0.25f * Random() - 0.125f,
+				0.25 * sin(this->ID* .0167) + 0.25f * Random() - 0.125f);
+		this->fElapsedTime = Random() + 0.125;
+	}
+
+	
 }
+
+float ParticleEnt::Random()
+{
+	float r = (float)rand() / (double)RAND_MAX;
+	return r;
+}
+	
 
 
 

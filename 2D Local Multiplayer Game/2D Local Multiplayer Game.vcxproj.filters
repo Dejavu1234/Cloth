@@ -157,6 +157,15 @@
     <ClCompile Include="Link.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ShadowMap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PartySystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SpookySkeleton.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Camera.h">
@@ -267,5 +276,8 @@
     <ClInclude Include="Spring.h" />
     <ClInclude Include="Cloth.h" />
     <ClInclude Include="Link.h" />
+    <ClInclude Include="ShadowMap.h" />
+    <ClInclude Include="PartySystem.h" />
+    <ClInclude Include="SpookySkeleton.h" />
   </ItemGroup>
 </Project>
